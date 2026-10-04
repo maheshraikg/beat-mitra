@@ -1,4 +1,5 @@
-"""Builds the 1024 x 500 Play Store feature graphic from tool/logo-source.png.
+"""Builds a simple 1024 x 500 feature graphic (store/feature-graphic-simple.png;
+the one used on Play is store/feature-graphic.png) from tool/logo-source.png.
 Run: python3 tool/make_feature_graphic.py  (needs Pillow with raqm for Kannada)."""
 import os
 from PIL import Image, ImageDraw, ImageFont
@@ -43,6 +44,6 @@ d.text((x + 4, 318), 'Find addresses. Plan your route.', font=tag, fill=WHITE)
 d.text((x + 4, 358), 'Deliver faster.', font=tag, fill=WHITE)
 d.text((x + 4, 418), 'Free  •  Works offline  •  Private', font=font(medium, 23), fill=(255, 225, 160))
 
-out = os.path.join(ROOT, 'store', 'feature-graphic.png')
+out = os.path.join(ROOT, 'store', 'feature-graphic-simple.png')
 img.save(out, optimize=True)
 print('written', out, os.path.getsize(out), 'bytes')
