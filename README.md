@@ -19,8 +19,8 @@ addresses, plan the day's route and record deliveries.
 | `offline` (default) | `app-offline-release.apk` | none: INTERNET is removed from the manifest |
 | `map` | `app-map-release.apk` | INTERNET, used only by the optional OpenStreetMap view (OFF by default) |
 
-Both flavors can be installed side by side (`com.beatmitra.beat_mitra` and
-`com.beatmitra.beat_mitra.map`).
+Both flavors can be installed side by side (`com.beatmitra.app` and
+`com.beatmitra.app.map`).
 
 ```bash
 flutter pub get

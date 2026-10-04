@@ -345,8 +345,7 @@ class _WalkModeScreenState extends State<WalkModeScreen> with LiveLocation {
                 Center(child: PhotoThumb(n.photos.firstOrNull?.filePath, size: 240)),
                 const SizedBox(height: 12),
                 Text(n.title, style: t.headlineMedium, textAlign: TextAlign.center),
-                if (n.place.landmark.isNotEmpty)
-                  Text('⚑ ${n.place.landmark}', style: t.titleLarge, textAlign: TextAlign.center),
+                if (n.place.landmark.isNotEmpty) IconLine(Icons.flag_outlined, n.place.landmark, style: t.titleLarge),
                 Text(n.addressees.map((a) => a.name).join(', '), style: t.titleMedium, textAlign: TextAlign.center),
                 const SizedBox(height: 12),
                 Text(l.walkHint, textAlign: TextAlign.center, style: t.bodyLarge),

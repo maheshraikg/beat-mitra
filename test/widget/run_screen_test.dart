@@ -31,7 +31,7 @@ void main() {
 
     expect(find.text('NEXT STOP'), findsOneWidget);
     expect(find.text('12'), findsOneWidget);
-    expect(find.text('⚠ Dog'), findsOneWidget);
+    expect(find.text('Dog'), findsOneWidget);
     expect(find.text('Needs signature / OTP'), findsOneWidget);
     expect(find.text('0 of 2 stops'), findsOneWidget);
 

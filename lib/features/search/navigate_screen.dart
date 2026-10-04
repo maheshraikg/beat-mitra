@@ -121,7 +121,7 @@ class _NavigateScreenState extends State<NavigateScreen> with LiveLocation {
                                   children: [
                                     Text(d.title, style: t.titleLarge),
                                     if (d.place.landmark.isNotEmpty)
-                                      Text('⚑ ${d.place.landmark}', style: t.titleMedium),
+                                      IconLine(Icons.flag_outlined, d.place.landmark, style: t.titleMedium),
                                     if (d.addressees.isNotEmpty)
                                       Text(d.addressees.map((a) => a.name).join(', '), style: t.bodyLarge),
                                     if (d.place.notes.isNotEmpty)

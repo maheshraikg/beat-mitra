@@ -63,7 +63,7 @@ class _MapScreenState extends State<MapScreen> with LiveLocation {
               children: [
                 TileLayer(
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.beatmitra.beat_mitra',
+                  userAgentPackageName: 'com.beatmitra.app',
                   maxZoom: 19,
                 ),
                 if (_track.length > 1)

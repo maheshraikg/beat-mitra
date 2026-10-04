@@ -384,3 +384,29 @@ class TagChip extends StatelessWidget {
     );
   }
 }
+
+/// An icon followed by wrapping text (used for landmark / notes lines).
+class IconLine extends StatelessWidget {
+  const IconLine(this.icon, this.text, {super.key, this.style, this.color});
+  final IconData icon;
+  final String text;
+  final TextStyle? style;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    final st = style ?? DefaultTextStyle.of(context).style;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 3, right: 6),
+          child: Icon(icon, size: (st.fontSize ?? 16) * 1.05, color: color ?? st.color),
+        ),
+        Expanded(
+          child: Text(text, style: st.copyWith(color: color ?? st.color)),
+        ),
+      ],
+    );
+  }
+}

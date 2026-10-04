@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.beatmitra.beat_mitra"
+    namespace = "com.beatmitra.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -15,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.beatmitra.beat_mitra"
+        applicationId = "com.beatmitra.app"
         // flutter_secure_storage / local_auth / ML Kit need API 23+; 24 keeps
         // SQLCipher and camera plugins happy on old low-end phones too.
         minSdk = 24

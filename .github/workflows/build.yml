@@ -62,12 +62,16 @@ jobs:
           ARGS="--release --split-per-abi --build-name $VERSION_NAME --build-number $VERSION_CODE"
           flutter build apk $ARGS --flavor offline
           flutter build apk $ARGS --flavor map
+          # Play Store bundle (offline flavor). Version code matches the 64-bit APK
+          # (Flutter adds 2000 for arm64 split APKs) so either can update the other.
+          flutter build appbundle --release --build-name $VERSION_NAME --build-number $((2000 + VERSION_CODE)) --flavor offline
           cd build/app/outputs/flutter-apk
           mkdir -p ../dist
           cp app-arm64-v8a-offline-release.apk ../dist/beat-mitra.apk
           cp app-armeabi-v7a-offline-release.apk ../dist/beat-mitra-32bit.apk
           cp app-arm64-v8a-map-release.apk ../dist/beat-mitra-map.apk
           cp app-armeabi-v7a-map-release.apk ../dist/beat-mitra-map-32bit.apk
+          cp ../bundle/offlineRelease/app-offline-release.aab ../dist/beat-mitra-play.aab
           ls -l ../dist
 
       - name: Check signing and permissions
@@ -81,7 +85,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: beat-mitra-apks
-          path: build/app/outputs/dist/*.apk
+          path: build/app/outputs/dist/*
           if-no-files-found: error
 
       - name: Publish release (main only, needs the signing key)
@@ -90,12 +94,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           cd build/app/outputs/dist
-          gh release create "v$VERSION_NAME" *.apk \
+          gh release create "v$VERSION_NAME" *.apk *.aab \
             --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --latest \
             --title "Beat Mitra $VERSION_NAME" \
             --notes "**beat-mitra.apk** - install this one (most phones, offline, no internet permission).
           **beat-mitra-32bit.apk** - only for old phones where the first one says *App not installed*.
           **beat-mitra-map.apk / beat-mitra-map-32bit.apk** - same app plus the optional OpenStreetMap view.
+          **beat-mitra-play.aab** - bundle for uploading to Google Play (not for phones).
 
           Updates install over the old version and keep your data.
           Independent helper tool for postmen. Not an official Department of Posts app."

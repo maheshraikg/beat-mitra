@@ -193,7 +193,11 @@ class _ArticleEditorScreenState extends State<ArticleEditorScreen> {
           TextField(
             controller: _no,
             textCapitalization: TextCapitalization.characters,
-            style: const TextStyle(fontSize: 20, fontFamily: 'monospace', fontWeight: FontWeight.w700),
+            style: const TextStyle(
+              fontSize: 20,
+              fontFeatures: [FontFeature.tabularFigures()],
+              fontWeight: FontWeight.w700,
+            ),
             onChanged: (v) => setState(() {
               final g = guessArticleType(v);
               if (g != null) _type = g;

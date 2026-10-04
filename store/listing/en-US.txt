@@ -1,0 +1,45 @@
+TITLE: Beat Mitra: Postman Helper
+SHORT: Offline helper for postmen: find addresses, plan routes, record deliveries.
+---
+Beat Mitra is a free, offline helper for postmen. Learn a delivery beat fast, find any address in seconds, plan the day's route and record every delivery – all on your phone, without internet.
+
+Independent helper tool for postmen. Not an official Department of Posts app. Follow your office's rules on customer information.
+
+FIND ANY ADDRESS
+• One search box for name, door number, street, building, landmark, area or PIN
+• Kannada, Hindi and English spellings all match: "ರಮೇಶ್", "Ramesh", "Rameshh", "रमेश"
+• Door numbers like 12/3, 12-3 and #12/3 are understood
+• Voice search
+• Big arrow and distance to the house – works without internet
+
+LEARN THE BEAT
+• "Add here" at every door: GPS, 1–3 photos, door number, names, landmark and notes such as "dog" or "gate locked"
+• Streets in your usual walking order
+• Flashcards and walk mode for new and relief postmen
+
+TODAY'S ARTICLES
+• Scan article barcodes (S10 numbers checked automatically)
+• Photograph the address – the app reads English and Hindi print on the phone and suggests the matching house
+• Registered, Speed Post and money orders marked "needs signature / OTP"
+
+ROUTE AND DELIVERY
+• Shortest route or your street order, drag to reorder
+• Big "Next stop" card: Delivered / Not delivered with reason / Skip / Navigate
+• Day summary with counts and re-attempts for tomorrow
+
+MY ROUTES
+• Your walk is recorded during delivery
+• A new postman can follow the same path step by step, or follow it back to the post office
+• Open routes and "back to start" in Google Maps
+
+HANDOVER AND BACKUP
+• Give your beat to a relief postman as a password-protected encrypted file
+• Full encrypted backup and restore
+
+PRIVATE BY DESIGN
+• Names and addresses stay only on your phone, encrypted
+• PIN / fingerprint lock, optional screenshot blocking
+• No account, no ads, no analytics, no internet permission
+• Free, with no in-app purchases
+
+Languages: ಕನ್ನಡ, English, हिन्दी

@@ -285,16 +285,21 @@ class _RunScreenState extends State<RunScreen> with LiveLocation {
                   ],
                 ),
                 if (d.streetName.isNotEmpty) Text(d.streetName, style: t.headlineSmall),
-                if (p.landmark.isNotEmpty) Text('⚑ ${p.landmark}', style: t.titleLarge),
+                if (p.landmark.isNotEmpty) IconLine(Icons.flag_outlined, p.landmark, style: t.titleLarge),
                 if (d.addressees.isNotEmpty) Text(d.addressees.map((a) => a.name).join(', '), style: t.titleMedium),
                 if (p.notes.isNotEmpty)
                   Container(
                     margin: const EdgeInsets.only(top: 8),
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(color: scheme.errorContainer, borderRadius: BorderRadius.circular(8)),
-                    child: Text('⚠ ${p.notes}', style: t.titleMedium?.copyWith(color: scheme.onErrorContainer)),
+                    child: IconLine(
+                      Icons.warning_amber_rounded,
+                      p.notes,
+                      style: t.titleMedium,
+                      color: scheme.onErrorContainer,
+                    ),
                   ),
-                if (p.deliveryPref.isNotEmpty) Text('🤝 ${p.deliveryPref}', style: t.titleMedium),
+                if (p.deliveryPref.isNotEmpty) IconLine(Icons.handshake_outlined, p.deliveryPref, style: t.titleMedium),
                 const SizedBox(height: 8),
                 Wrap(
                   spacing: 8,

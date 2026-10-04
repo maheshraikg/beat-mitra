@@ -44,10 +44,16 @@ ThemeData buildTheme(Brightness brightness, {bool sunlight = false}) {
   }
 
   final base = ThemeData(useMaterial3: true, colorScheme: scheme, visualDensity: VisualDensity.standard);
-  final text = base.textTheme.apply(bodyColor: scheme.onSurface, displayColor: scheme.onSurface);
+  final text = base.textTheme.apply(
+    bodyColor: scheme.onSurface,
+    displayColor: scheme.onSurface,
+    // Android falls back to system fonts anyway; naming Noto keeps Kannada and
+    // Devanagari readable where only bundled fonts exist (store screenshots).
+    fontFamilyFallback: const ['NotoSansKannada', 'NotoSansDevanagari'],
+  );
   const big = Size(64, 56);
   final shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(14));
-  final btnText = const TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
+  final btnText = text.labelLarge!.copyWith(fontSize: 18, fontWeight: FontWeight.w600);
   final side = sunlight ? BorderSide(color: scheme.outline, width: 2) : null;
 
   return base.copyWith(
@@ -61,7 +67,7 @@ ThemeData buildTheme(Brightness brightness, {bool sunlight = false}) {
       backgroundColor: scheme.primary,
       foregroundColor: scheme.onPrimary,
       centerTitle: false,
-      titleTextStyle: TextStyle(fontSize: 21, fontWeight: FontWeight.w700, color: scheme.onPrimary),
+      titleTextStyle: text.titleLarge!.copyWith(fontSize: 21, fontWeight: FontWeight.w700, color: scheme.onPrimary),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(minimumSize: big, shape: shape, textStyle: btnText, side: side),
@@ -104,7 +110,7 @@ ThemeData buildTheme(Brightness brightness, {bool sunlight = false}) {
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     ),
     chipTheme: base.chipTheme.copyWith(
-      labelStyle: const TextStyle(fontSize: 16),
+      labelStyle: text.labelLarge!.copyWith(fontSize: 16),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     ),
     listTileTheme: const ListTileThemeData(minVerticalPadding: 12),

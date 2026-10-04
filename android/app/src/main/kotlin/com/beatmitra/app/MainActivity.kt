@@ -1,4 +1,4 @@
-package com.beatmitra.beat_mitra
+package com.beatmitra.app
 
 import android.view.WindowManager
 import io.flutter.embedding.android.FlutterFragmentActivity

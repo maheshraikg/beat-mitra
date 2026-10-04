@@ -42,7 +42,7 @@ class TrackView extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           child: CustomPaint(
             size: Size.infinite,
-            painter: _TrackPainter(points, here, target, progress, places, scheme),
+            painter: _TrackPainter(points, here, target, progress, places, scheme, Theme.of(context).textTheme.labelMedium!),
           ),
         ),
       ),
@@ -51,7 +51,8 @@ class TrackView extends StatelessWidget {
 }
 
 class _TrackPainter extends CustomPainter {
-  _TrackPainter(this.points, this.here, this.target, this.progress, this.places, this.scheme);
+  _TrackPainter(this.points, this.here, this.target, this.progress, this.places, this.scheme, this.labelStyle);
+  final TextStyle labelStyle;
   final List<TrackPoint> points;
   final GeoPoint? here;
   final GeoPoint? target;
@@ -86,7 +87,7 @@ class _TrackPainter extends CustomPainter {
     final by = size.height - 12;
     canvas.drawLine(Offset(12, by), Offset(12 + barPx, by), barPaint);
     _text(canvas, formatDistance(bar), Offset(14, by - 18), scheme.onSurfaceVariant, 12);
-    _text(canvas, 'N ↑', Offset(size.width - 34, 6), scheme.onSurfaceVariant, 13);
+    _text(canvas, 'N', Offset(size.width - 34, 6), scheme.onSurfaceVariant, 13);
 
     for (final p in places) {
       canvas.drawCircle(toScreen(p), 4, Paint()..color = scheme.tertiary.withValues(alpha: 0.7));

@@ -114,24 +114,28 @@ class _TodayScreenState extends State<TodayScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.all(12),
-            child: Row(
-              children: [
-                Expanded(
-                  child: _AddButton(icon: Icons.qr_code_scanner, label: l.scanBarcode, onTap: _scanBarcodes),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _AddButton(icon: Icons.document_scanner, label: l.scanAddress, onTap: _scanAddress),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _AddButton(
-                    icon: Icons.keyboard,
-                    label: l.typeIn,
-                    onTap: () => _open(ArticleEditorScreen(date: _date)),
+            // Equal-height buttons that grow for two-line labels.
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: _AddButton(icon: Icons.qr_code_scanner, label: l.scanBarcode, onTap: _scanBarcodes),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: _AddButton(icon: Icons.document_scanner, label: l.scanAddress, onTap: _scanAddress),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: _AddButton(
+                      icon: Icons.keyboard,
+                      label: l.typeIn,
+                      onTap: () => _open(ArticleEditorScreen(date: _date)),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           if (_carryable > 0)
@@ -203,8 +207,8 @@ class _AddButton extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-    height: 96,
+  Widget build(BuildContext context) => ConstrainedBox(
+    constraints: const BoxConstraints(minHeight: 96),
     child: FilledButton.tonal(
       style: FilledButton.styleFrom(padding: const EdgeInsets.all(6)),
       onPressed: onTap,
@@ -262,7 +266,7 @@ class _ArticleTile extends StatelessWidget {
       leading: Icon(articleTypeIcon(a.type), size: 30),
       title: Text(
         a.articleNo.isNotEmpty ? a.articleNo : articleTypeLabel(l, a.type),
-        style: const TextStyle(fontSize: 17, fontFamily: 'monospace', fontWeight: FontWeight.w600),
+        style: const TextStyle(fontSize: 17, fontFeatures: [FontFeature.tabularFigures()], fontWeight: FontWeight.w600),
       ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

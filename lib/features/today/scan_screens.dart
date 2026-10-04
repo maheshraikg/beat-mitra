@@ -83,7 +83,10 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
                       for (final c in _codes)
                         ListTile(
                           dense: true,
-                          title: Text(c, style: const TextStyle(fontSize: 18, fontFamily: 'monospace')),
+                          title: Text(
+                            c,
+                            style: const TextStyle(fontSize: 18, fontFeatures: [FontFeature.tabularFigures()]),
+                          ),
                           subtitle: _statusText(context, c),
                           trailing: IconButton(
                             tooltip: l.remove,
