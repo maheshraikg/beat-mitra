@@ -62,6 +62,9 @@ ThemeData buildTheme(Brightness brightness, {bool sunlight = false}) {
       bodyMedium: text.bodyMedium?.copyWith(fontSize: 16),
       titleLarge: text.titleLarge?.copyWith(fontWeight: FontWeight.w700),
       titleMedium: text.titleMedium?.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
+      // Chips take their label from labelLarge (colour picked per state by
+      // the chip itself), so the size is set here and not in chipTheme.
+      labelLarge: text.labelLarge?.copyWith(fontSize: 16),
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: scheme.primary,
@@ -109,8 +112,10 @@ ThemeData buildTheme(Brightness brightness, {bool sunlight = false}) {
       ),
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     ),
+    // No labelStyle here: a fixed label colour in chipTheme showed light text
+    // on light chips on some phones. The chip's own default resolves the
+    // colour from the current scheme at build time.
     chipTheme: base.chipTheme.copyWith(
-      labelStyle: text.labelLarge!.copyWith(fontSize: 16),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     ),
     listTileTheme: const ListTileThemeData(minVerticalPadding: 12),
