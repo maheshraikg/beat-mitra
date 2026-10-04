@@ -42,11 +42,30 @@ android {
         }
     }
 
+    // Permanent release key (android/app/release.p12, password from the
+    // BEATMITRA_SIGNING_PASSWORD environment variable / GitHub secret). The
+    // same key on every build lets updates install over the old app and keep
+    // its data. Without the password, local builds fall back to the debug key.
+    val signingPassword = System.getenv("BEATMITRA_SIGNING_PASSWORD")
+    signingConfigs {
+        if (!signingPassword.isNullOrEmpty()) {
+            create("release") {
+                storeFile = file("release.p12")
+                storeType = "pkcs12"
+                storePassword = signingPassword
+                keyAlias = "beatmitra"
+                keyPassword = signingPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // Signed with the debug key so the APK installs directly. For a
-            // store release, create your own keystore (see README).
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = if (signingPassword.isNullOrEmpty()) {
+                signingConfigs.getByName("debug")
+            } else {
+                signingConfigs.getByName("release")
+            }
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")

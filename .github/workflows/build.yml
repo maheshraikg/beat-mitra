@@ -45,42 +45,57 @@ jobs:
       - name: Test
         run: flutter test
 
-      - name: Build release APKs (offline + map)
+      - name: Version
+        env:
+          HAS_KEY: ${{ secrets.BEATMITRA_SIGNING_PASSWORD != '' }}
         run: |
-          flutter build apk --release --flavor offline
-          flutter build apk --release --flavor map
-          ls -l build/app/outputs/flutter-apk/
+          echo "HAS_KEY=$HAS_KEY" >> "$GITHUB_ENV"
+          BASE=$(grep -E '^version:' pubspec.yaml | sed -E 's/version: *([0-9]+\.[0-9]+)\..*/\1/')
+          echo "VERSION_NAME=$BASE.$GITHUB_RUN_NUMBER" >> "$GITHUB_ENV"
+          echo "VERSION_CODE=$GITHUB_RUN_NUMBER" >> "$GITHUB_ENV"
 
-      - name: Check the offline APK has no INTERNET permission
+      - name: Build release APKs (one per processor type)
+        env:
+          BEATMITRA_SIGNING_PASSWORD: ${{ secrets.BEATMITRA_SIGNING_PASSWORD }}
         run: |
-          AAPT2=$(ls -d $ANDROID_HOME/build-tools/*/ | sort -V | tail -1)aapt2
-          $AAPT2 dump permissions build/app/outputs/flutter-apk/app-offline-release.apk | tee perms.txt
+          if [ -z "$BEATMITRA_SIGNING_PASSWORD" ]; then echo "::warning::BEATMITRA_SIGNING_PASSWORD secret not set - APKs use a temporary debug key"; fi
+          ARGS="--release --split-per-abi --build-name $VERSION_NAME --build-number $VERSION_CODE"
+          flutter build apk $ARGS --flavor offline
+          flutter build apk $ARGS --flavor map
+          cd build/app/outputs/flutter-apk
+          mkdir -p ../dist
+          cp app-arm64-v8a-offline-release.apk ../dist/beat-mitra.apk
+          cp app-armeabi-v7a-offline-release.apk ../dist/beat-mitra-32bit.apk
+          cp app-arm64-v8a-map-release.apk ../dist/beat-mitra-map.apk
+          cp app-armeabi-v7a-map-release.apk ../dist/beat-mitra-map-32bit.apk
+          ls -l ../dist
+
+      - name: Check signing and permissions
+        run: |
+          BT=$(ls -d $ANDROID_HOME/build-tools/*/ | sort -V | tail -1)
+          ${BT}apksigner verify --print-certs build/app/outputs/dist/beat-mitra.apk | grep -E "SHA-256|DN"
+          ${BT}aapt2 dump permissions build/app/outputs/dist/beat-mitra.apk | tee perms.txt
           if grep -q "android.permission.INTERNET" perms.txt; then echo "INTERNET found in offline APK"; exit 1; fi
-          $AAPT2 dump permissions build/app/outputs/flutter-apk/app-map-release.apk | grep -q "android.permission.INTERNET"
+          ${BT}aapt2 dump permissions build/app/outputs/dist/beat-mitra-map.apk | grep -q "android.permission.INTERNET"
 
       - uses: actions/upload-artifact@v4
         with:
           name: beat-mitra-apks
-          path: |
-            build/app/outputs/flutter-apk/app-offline-release.apk
-            build/app/outputs/flutter-apk/app-map-release.apk
+          path: build/app/outputs/dist/*.apk
           if-no-files-found: error
 
-      - name: Publish release (push to main)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Publish release (main only, needs the signing key)
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && env.HAS_KEY == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          VERSION=v$(grep -E '^version:' pubspec.yaml | sed -E 's/version: *([0-9.]+).*/\1/')
-          cd build/app/outputs/flutter-apk
-          cp app-offline-release.apk beat-mitra.apk
-          cp app-map-release.apk beat-mitra-map.apk
-          if gh release view "$VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            # Same version rebuilt: replace the files.
-            gh release upload "$VERSION" beat-mitra.apk beat-mitra-map.apk --clobber --repo "$GITHUB_REPOSITORY"
-          else
-            gh release create "$VERSION" beat-mitra.apk beat-mitra-map.apk \
-              --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --latest \
-              --title "Beat Mitra $VERSION" \
-              --notes "beat-mitra.apk: offline build (no internet permission) - install this one. beat-mitra-map.apk: adds the optional OpenStreetMap view. Independent helper tool for postmen. Not an official Department of Posts app."
-          fi
+          cd build/app/outputs/dist
+          gh release create "v$VERSION_NAME" *.apk \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --latest \
+            --title "Beat Mitra $VERSION_NAME" \
+            --notes "**beat-mitra.apk** - install this one (most phones, offline, no internet permission).
+          **beat-mitra-32bit.apk** - only for old phones where the first one says *App not installed*.
+          **beat-mitra-map.apk / beat-mitra-map-32bit.apk** - same app plus the optional OpenStreetMap view.
+
+          Updates install over the old version and keep your data.
+          Independent helper tool for postmen. Not an official Department of Posts app."

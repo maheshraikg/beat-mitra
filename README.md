@@ -33,13 +33,20 @@ flutter analyze && flutter test
 
 The GitHub Actions workflow `.github/workflows/build.yml` runs analyze,
 tests, builds both APKs, checks that the offline APK has no INTERNET permission
-and uploads the APKs as the `beat-mitra-apks` artifact. Every push to `main` also publishes a GitHub Release (version from `pubspec.yaml`) with `beat-mitra.apk` (offline) and `beat-mitra-map.apk`.
+and uploads the APKs as the `beat-mitra-apks` artifact. Every push to `main` also publishes a GitHub Release `v1.0.<build number>` with `beat-mitra.apk` (offline) and `beat-mitra-map.apk`.
 
 **Direct download (latest):** https://github.com/maheshraikg/beat-mitra/releases/latest/download/beat-mitra.apk
 
-Release APKs are signed with the Flutter debug key so they install directly.
-For a Play Store release create your own keystore and signing config in
-`android/app/build.gradle.kts`.
+Release APKs are signed with the permanent key `android/app/release.p12`
+(PKCS12). Its password lives only in the repository secret
+`BEATMITRA_SIGNING_PASSWORD`; without it, local builds use the debug key and
+CI does not publish a release. Because every release uses the same key, new
+versions install over the old one and keep the phone's data. Keep the password
+safe: if it is lost, users must uninstall (and lose data) to switch to a new key.
+
+Each build gets version `1.0.<build number>`, and APKs are split per processor:
+`beat-mitra.apk` (64-bit ARM, almost all phones) and `beat-mitra-32bit.apk`
+(old phones that say "App not installed" for the first one).
 
 ### Install on your phone
 
@@ -145,7 +152,6 @@ reset, only a backup can bring it back.
   build they have no network permission, so nothing can be sent.
 - Very large backups (thousands of photos) are built in memory and may be slow
   on low-end phones.
-- Release APKs are signed with the debug key.
 
 ## Project layout
 
