@@ -16,7 +16,8 @@ const int backupFormat = 1;
 enum ExportKind { handover, fullBackup }
 
 class ImportResult {
-  ImportResult(this.beats, this.places, this.photos, this.articles);
+  ImportResult(this.beats, this.places, this.photos, this.articles, {this.tracks = 0});
+  final int tracks;
   final int beats;
   final int places;
   final int photos;
@@ -78,6 +79,7 @@ class BackupCodec {
       'kind': kind.name,
       'created_at': DateTime.now().millisecondsSinceEpoch,
       'beats': beatsJson,
+      'tracks': await _tracksJson(kind == ExportKind.fullBackup ? null : beats.map((b) => b.id!).toSet()),
     };
     if (kind == ExportKind.fullBackup) {
       data['articles'] = await db.query('articles');
@@ -86,6 +88,24 @@ class BackupCodec {
     }
     archive.addFile(ArchiveFile.string('data.json', jsonEncode(data)));
     return ZipEncoder().encodeBytes(archive);
+  }
+
+  /// Recorded routes; [beatIds] null = all. Points are packed as
+  /// [lat, lng, accuracy, time] to keep the file small.
+  Future<List<Map<String, Object?>>> _tracksJson(Set<int>? beatIds) async {
+    final out = <Map<String, Object?>>[];
+    for (final r in await db.query('tracks', where: 'ended_at IS NOT NULL', orderBy: 'id')) {
+      final beat = r['beat_id'] as int?;
+      if (beatIds != null && (beat == null || !beatIds.contains(beat))) continue;
+      final pts = await db.query('track_points', where: 'track_id = ?', whereArgs: [r['id']], orderBy: 'seq');
+      out.add({
+        'track': r,
+        'points': [
+          for (final p in pts) [p['lat'], p['lng'], p['acc'], p['t']],
+        ],
+      });
+    }
+    return out;
   }
 
   Future<Uint8List> export({
@@ -135,10 +155,14 @@ class BackupCodec {
 
     var nBeats = 0, nPlaces = 0, nPhotos = 0, nArticles = 0;
     final placeIdMap = <int, int>{};
+    final beatIdMap = <int, int>{};
+    var nTracks = 0;
     await db.transaction((t) async {
       for (final bj in (data['beats'] as List).cast<Map<String, Object?>>()) {
-        final beatMap = Map<String, Object?>.from(bj['beat'] as Map)..remove('id');
+        final beatMap = Map<String, Object?>.from(bj['beat'] as Map);
+        final oldBeatId = beatMap.remove('id') as int?;
         final beatId = await t.insert('beats', beatMap);
+        if (oldBeatId != null) beatIdMap[oldBeatId] = beatId;
         nBeats++;
         final streetIdMap = <int, int>{};
         for (final sj in (bj['streets'] as List).cast<Map<String, Object?>>()) {
@@ -189,7 +213,27 @@ class BackupCodec {
       for (final dj in ((data['day_log'] as List?) ?? const []).cast<Map<String, Object?>>()) {
         await t.insert('day_log', dj, conflictAlgorithm: ConflictAlgorithm.replace);
       }
+      for (final tj in ((data['tracks'] as List?) ?? const []).cast<Map<String, Object?>>()) {
+        final m = Map<String, Object?>.from(tj['track'] as Map)..remove('id');
+        final b = m['beat_id'] as int?;
+        m['beat_id'] = b == null ? null : beatIdMap[b];
+        final tid = await t.insert('tracks', m);
+        final batch = t.batch();
+        var seq = 0;
+        for (final p in (tj['points'] as List).cast<List>()) {
+          batch.insert('track_points', {
+            'track_id': tid,
+            'seq': seq++,
+            'lat': (p[0] as num).toDouble(),
+            'lng': (p[1] as num).toDouble(),
+            'acc': (p[2] as num?)?.toDouble() ?? 0,
+            't': p[3] as int? ?? 0,
+          });
+        }
+        await batch.commit(noResult: true);
+        nTracks++;
+      }
     });
-    return ImportResult(nBeats, nPlaces, nPhotos, nArticles);
+    return ImportResult(nBeats, nPlaces, nPhotos, nArticles, tracks: nTracks);
   }
 }

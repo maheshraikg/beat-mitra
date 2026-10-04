@@ -17,7 +17,10 @@ final bool mapAvailableInBuild = appFlavor == 'map';
 /// policy: visible attribution, an identifying User-Agent, normal browsing
 /// only, no bulk or offline tile downloading.
 class MapScreen extends StatefulWidget {
-  const MapScreen({super.key});
+  const MapScreen({super.key, this.trackId});
+
+  /// Optional saved route to draw on the map.
+  final int? trackId;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -25,6 +28,7 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> with LiveLocation {
   List<PlaceDetails> _places = [];
+  List<LatLng> _track = [];
 
   @override
   void initState() {
@@ -33,6 +37,11 @@ class _MapScreenState extends State<MapScreen> with LiveLocation {
     context.services.places.allDetails(beatId: beat?.id).then((p) {
       if (mounted) setState(() => _places = p.where((d) => d.place.point != null).toList());
     });
+    if (widget.trackId != null) {
+      context.services.tracks.points(widget.trackId!).then((pts) {
+        if (mounted) setState(() => _track = [for (final p in pts) LatLng(p.lat, p.lng)]);
+      });
+    }
     startLocation();
   }
 
@@ -40,7 +49,9 @@ class _MapScreenState extends State<MapScreen> with LiveLocation {
   Widget build(BuildContext context) {
     final l = context.l;
     final pts = _places.map((d) => LatLng(d.place.lat!, d.place.lng!)).toList();
-    final center = here != null
+    final center = _track.isNotEmpty
+        ? _track.first
+        : here != null
         ? LatLng(here!.lat, here!.lng)
         : (pts.isNotEmpty ? pts.first : const LatLng(12.9716, 77.5946));
     return Scaffold(
@@ -55,6 +66,10 @@ class _MapScreenState extends State<MapScreen> with LiveLocation {
                   userAgentPackageName: 'com.beatmitra.beat_mitra',
                   maxZoom: 19,
                 ),
+                if (_track.length > 1)
+                  PolylineLayer(
+                    polylines: [Polyline(points: _track, strokeWidth: 5, color: const Color(0xFFC62828))],
+                  ),
                 MarkerLayer(
                   markers: [
                     for (final d in _places)

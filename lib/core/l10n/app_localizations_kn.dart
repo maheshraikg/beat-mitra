@@ -952,8 +952,8 @@ class AppLocalizationsKn extends AppLocalizations {
   String get notBeatMitraFile => 'ಇದು ಬೀಟ್ ಮಿತ್ರ ಫೈಲ್ ಅಲ್ಲ';
 
   @override
-  String importDone(int beats, int places, int photos) {
-    return '$beats ಬೀಟ್, $places ಸ್ಥಳ, $photos ಫೋಟೋ ಆಮದಾಗಿದೆ';
+  String importDone(int beats, int places, int photos, int routes) {
+    return '$beats ಬೀಟ್, $places ಸ್ಥಳ, $photos ಫೋಟೋ, $routes ಮಾರ್ಗ ಆಮದಾಗಿದೆ';
   }
 
   @override
@@ -1187,4 +1187,124 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get helpKannadaOcr =>
       'ಗಮನಿಸಿ: ಫೋನಿನ ಪಠ್ಯ ಓದುಗ ಇಂಗ್ಲಿಷ್ ಮತ್ತು ಹಿಂದಿ (ದೇವನಾಗರಿ) ಮುದ್ರಣ ಓದುತ್ತದೆ, ಕನ್ನಡ ಲಿಪಿ ಅಲ್ಲ. ಕನ್ನಡ ವಿಳಾಸಕ್ಕೆ ಹೆಸರು ಅಥವಾ ಮನೆ ಸಂಖ್ಯೆಯಿಂದ ಹುಡುಕಿ — ಕನ್ನಡ ಟೈಪಿಂಗ್ ಮತ್ತು ಧ್ವನಿ ಹುಡುಕಾಟ ಕೆಲಸ ಮಾಡುತ್ತದೆ.';
+
+  @override
+  String get myRoutes => 'ನನ್ನ ಮಾರ್ಗಗಳು';
+
+  @override
+  String routeNameDefault(String when) {
+    return 'ನಡಿಗೆ $when';
+  }
+
+  @override
+  String deliveryRouteName(String date) {
+    return 'ವಿತರಣೆ $date';
+  }
+
+  @override
+  String get recordingNotifTitle => 'ಬೀಟ್ ಮಿತ್ರ ನಿಮ್ಮ ಮಾರ್ಗ ದಾಖಲಿಸುತ್ತಿದೆ';
+
+  @override
+  String get recordingNotifText => 'ಈ ಫೋನಿನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತದೆ. ನಿಲ್ಲಿಸಲು ಆ್ಯಪ್ ತೆರೆಯಿರಿ.';
+
+  @override
+  String get routeTooShort => 'ಉಳಿಸಲು ಮಾರ್ಗ ತುಂಬಾ ಚಿಕ್ಕದು';
+
+  @override
+  String get routeSaved => 'ಮಾರ್ಗ ಉಳಿಸಲಾಗಿದೆ';
+
+  @override
+  String recordingNow(String distance) {
+    return 'ಮಾರ್ಗ ದಾಖಲಾಗುತ್ತಿದೆ · $distance';
+  }
+
+  @override
+  String get recordHelp => 'ನಿಮ್ಮ ನಡಿಗೆಯನ್ನು ದಾಖಲಿಸಿ — ನಂತರ ನೀವು ಅಥವಾ ಹೊಸ ಅಂಚೆಯಣ್ಣ ಅದನ್ನು ಅನುಸರಿಸಿ ಹಿಂದಿರುಗಬಹುದು.';
+
+  @override
+  String get startRecording => 'ದಾಖಲಿಸಲು ಆರಂಭಿಸಿ';
+
+  @override
+  String get stopAndSave => 'ನಿಲ್ಲಿಸಿ ಉಳಿಸಿ';
+
+  @override
+  String get backToStart => 'ಹಿಂದಿರುಗಿ';
+
+  @override
+  String get backToRouteStart => 'ಆರಂಭಿಸಿದ ಸ್ಥಳಕ್ಕೆ ಹಿಂದಿರುಗಿ';
+
+  @override
+  String get backToOffice => 'ಅಂಚೆ ಕಚೇರಿಗೆ ಹಿಂದಿರುಗಿ';
+
+  @override
+  String get setOfficeHint => 'ಸಲಹೆ: ಸೆಟ್ಟಿಂಗ್ → ಮಾರ್ಗದ ಆರಂಭ ಸ್ಥಳದಲ್ಲಿ ಅಂಚೆ ಕಚೇರಿ ಸ್ಥಳ ಉಳಿಸಿ.';
+
+  @override
+  String get savedRoutes => 'ಉಳಿಸಿದ ಮಾರ್ಗಗಳು';
+
+  @override
+  String get noRoutesYet => 'ಇನ್ನೂ ಮಾರ್ಗಗಳಿಲ್ಲ. “ವಿತರಣೆ ಆರಂಭಿಸಿ” ಸಮಯದಲ್ಲಿ ಮಾರ್ಗ ತಾನಾಗಿ ದಾಖಲಾಗುತ್ತದೆ.';
+
+  @override
+  String get arrowOffline => 'ಬಾಣ (ಆಫ್‌ಲೈನ್)';
+
+  @override
+  String get openInGoogleMaps => 'ಗೂಗಲ್ ಮ್ಯಾಪ್ಸ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ';
+
+  @override
+  String get renameRoute => 'ಮಾರ್ಗದ ಹೆಸರು ಬದಲಿಸಿ';
+
+  @override
+  String get deleteRoute => 'ಮಾರ್ಗ ಅಳಿಸಿ';
+
+  @override
+  String get deleteRouteConfirm => 'ಈ ಉಳಿಸಿದ ಮಾರ್ಗ ಅಳಿಸುವುದೇ?';
+
+  @override
+  String get shareGpx => 'GPX ಫೈಲ್ ಆಗಿ ಹಂಚಿ';
+
+  @override
+  String get routeLegend => 'ಹಸಿರು = ಆರಂಭ, ಕೆಂಪು = ಕೊನೆ. ಚುಕ್ಕೆ = ಉಳಿಸಿದ ಸ್ಥಳಗಳು.';
+
+  @override
+  String get followRoute => 'ಈ ಮಾರ್ಗ ಅನುಸರಿಸಿ';
+
+  @override
+  String get followRouteBack => 'ಹಿಂದಕ್ಕೆ ಆರಂಭದವರೆಗೆ ಅನುಸರಿಸಿ';
+
+  @override
+  String get gmapsRoute => 'ಈ ಮಾರ್ಗ';
+
+  @override
+  String get gmapsToStart => 'ಆರಂಭಕ್ಕೆ';
+
+  @override
+  String get gmapsNote =>
+      'ಈ ಮಾರ್ಗದ ಬಿಂದುಗಳ ಮೂಲಕ ಗೂಗಲ್ ಮ್ಯಾಪ್ಸ್ ದಾರಿ ತೋರಿಸುತ್ತದೆ (ಗೂಗಲ್ ಮ್ಯಾಪ್ಸ್‌ಗೆ ಇಂಟರ್ನೆಟ್ ಬೇಕು; ಬೀಟ್ ಮಿತ್ರ ಆಫ್‌ಲೈನ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ).';
+
+  @override
+  String get showOnMap => 'ಆನ್‌ಲೈನ್ ನಕ್ಷೆಯಲ್ಲಿ ತೋರಿಸಿ';
+
+  @override
+  String remainingOnRoute(String distance) {
+    return 'ಇನ್ನೂ $distance';
+  }
+
+  @override
+  String offRoute(String distance) {
+    return 'ಮಾರ್ಗದಿಂದ $distance ದೂರ — ಗೆರೆಯ ಕಡೆ ನಡೆಯಿರಿ';
+  }
+
+  @override
+  String get autoRecordRun => 'ವಿತರಣೆಯ ವೇಳೆ ನನ್ನ ಮಾರ್ಗ ದಾಖಲಿಸಿ';
+
+  @override
+  String get autoRecordRunSub => 'ಈ ಫೋನಿನಲ್ಲಿ ಉಳಿಯುತ್ತದೆ; ರಿಲೀಫ್ ಅಂಚೆಯಣ್ಣರ ಹಸ್ತಾಂತರ ಫೈಲ್‌ನಲ್ಲಿ ಸೇರುತ್ತದೆ';
+
+  @override
+  String get help10Title => 'ಮಾರ್ಗ ದಾಖಲಿಸಿ ಮತ್ತು ಅನುಸರಿಸಿ';
+
+  @override
+  String get help10Body =>
+      'ವಿತರಣೆಯ ವೇಳೆ ನಿಮ್ಮ ನಡಿಗೆ ದಾಖಲಾಗುತ್ತದೆ. ಹೊಸ ಅಂಚೆಯಣ್ಣ ಅದನ್ನು ಹಂತ ಹಂತವಾಗಿ ಅನುಸರಿಸಬಹುದು, ಅಥವಾ ಹಿಂದಕ್ಕೆ ಅನುಸರಿಸಿ ಆರಂಭಕ್ಕೆ ಮರಳಬಹುದು. ಮಾರ್ಗಗಳು ಗೂಗಲ್ ಮ್ಯಾಪ್ಸ್‌ನಲ್ಲೂ ತೆರೆಯುತ್ತವೆ.';
 }

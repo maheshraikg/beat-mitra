@@ -26,7 +26,7 @@ class FakeLocation implements LocationService {
   @override
   Future<GpsFix?> current() async => _fix;
   @override
-  Stream<GpsFix> fixes() async* {
+  Stream<GpsFix> fixes({String? backgroundTitle, String? backgroundText}) async* {
     yield _fix;
     yield* _ctrl.stream;
   }

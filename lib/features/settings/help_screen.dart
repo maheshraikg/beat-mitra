@@ -19,6 +19,7 @@ class HelpScreen extends StatelessWidget {
       (Icons.alt_route, Icons.check_circle, l.help6Title, l.help6Body),
       (Icons.summarize_outlined, Icons.share, l.help7Title, l.help7Body),
       (Icons.school_outlined, Icons.directions_walk, l.help8Title, l.help8Body),
+      (Icons.route, Icons.u_turn_left, l.help10Title, l.help10Body),
       (Icons.ios_share, Icons.lock, l.help9Title, l.help9Body),
     ];
     return Scaffold(

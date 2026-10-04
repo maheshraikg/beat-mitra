@@ -194,7 +194,7 @@ class _BackupScreenState extends State<BackupScreen> {
     if (r == null) return;
     await app.reloadBeats();
     await app.rebuildIndex();
-    if (mounted) context.toast(l.importDone(r.beats, r.places, r.photos));
+    if (mounted) context.toast(l.importDone(r.beats, r.places, r.photos, r.tracks));
   }
 
   // ---------- Full backup ----------

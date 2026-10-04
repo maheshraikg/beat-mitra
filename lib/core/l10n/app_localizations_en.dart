@@ -951,8 +951,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notBeatMitraFile => 'This is not a Beat Mitra file';
 
   @override
-  String importDone(int beats, int places, int photos) {
-    return 'Imported $beats beats, $places places, $photos photos';
+  String importDone(int beats, int places, int photos, int routes) {
+    return 'Imported $beats beats, $places places, $photos photos, $routes routes';
   }
 
   @override
@@ -1186,4 +1186,124 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get helpKannadaOcr =>
       'Note: the on-device text reader understands English and Hindi (Devanagari) print, but not Kannada script. For Kannada addresses, search by name or door no. — Kannada typing and voice search work.';
+
+  @override
+  String get myRoutes => 'My routes';
+
+  @override
+  String routeNameDefault(String when) {
+    return 'Walk $when';
+  }
+
+  @override
+  String deliveryRouteName(String date) {
+    return 'Delivery $date';
+  }
+
+  @override
+  String get recordingNotifTitle => 'Beat Mitra is recording your route';
+
+  @override
+  String get recordingNotifText => 'Saved only on this phone. Open the app to stop.';
+
+  @override
+  String get routeTooShort => 'Route too short to save';
+
+  @override
+  String get routeSaved => 'Route saved';
+
+  @override
+  String recordingNow(String distance) {
+    return 'Recording route · $distance';
+  }
+
+  @override
+  String get recordHelp => 'Record your walk so you, or a new postman, can follow it later and find the way back.';
+
+  @override
+  String get startRecording => 'Start recording';
+
+  @override
+  String get stopAndSave => 'Stop & save';
+
+  @override
+  String get backToStart => 'Go back';
+
+  @override
+  String get backToRouteStart => 'Back to where I started';
+
+  @override
+  String get backToOffice => 'Back to post office';
+
+  @override
+  String get setOfficeHint => 'Tip: set your post office location in Settings → Route start point.';
+
+  @override
+  String get savedRoutes => 'Saved routes';
+
+  @override
+  String get noRoutesYet => 'No routes yet. Routes are recorded automatically during “Start delivery”.';
+
+  @override
+  String get arrowOffline => 'Arrow (offline)';
+
+  @override
+  String get openInGoogleMaps => 'Open in Google Maps';
+
+  @override
+  String get renameRoute => 'Rename route';
+
+  @override
+  String get deleteRoute => 'Delete route';
+
+  @override
+  String get deleteRouteConfirm => 'Delete this saved route?';
+
+  @override
+  String get shareGpx => 'Share as GPX file';
+
+  @override
+  String get routeLegend => 'Green = start, red = end. Dots = saved places.';
+
+  @override
+  String get followRoute => 'Follow this route';
+
+  @override
+  String get followRouteBack => 'Follow it back to the start';
+
+  @override
+  String get gmapsRoute => 'This route';
+
+  @override
+  String get gmapsToStart => 'To the start';
+
+  @override
+  String get gmapsNote =>
+      'Google Maps opens with directions through points of this route (needs internet in Google Maps; Beat Mitra itself stays offline).';
+
+  @override
+  String get showOnMap => 'Show on online map';
+
+  @override
+  String remainingOnRoute(String distance) {
+    return '$distance to go';
+  }
+
+  @override
+  String offRoute(String distance) {
+    return 'Off the route by $distance — walk towards the line';
+  }
+
+  @override
+  String get autoRecordRun => 'Record my route during delivery';
+
+  @override
+  String get autoRecordRunSub => 'Saved on this phone; included in the handover file for relief postmen';
+
+  @override
+  String get help10Title => 'Record and follow routes';
+
+  @override
+  String get help10Body =>
+      'Your walk is recorded during delivery. A new postman can follow it step by step, or follow it backwards to return to the start. Routes also open in Google Maps.';
 }

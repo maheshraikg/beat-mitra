@@ -951,8 +951,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get notBeatMitraFile => 'यह बीट मित्र फ़ाइल नहीं है';
 
   @override
-  String importDone(int beats, int places, int photos) {
-    return '$beats बीट, $places जगहें, $photos फ़ोटो आयात हुए';
+  String importDone(int beats, int places, int photos, int routes) {
+    return '$beats बीट, $places जगहें, $photos फ़ोटो, $routes रास्ते आयात हुए';
   }
 
   @override
@@ -1182,4 +1182,124 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get helpKannadaOcr =>
       'ध्यान दें: फ़ोन का टेक्स्ट रीडर अंग्रेज़ी और हिंदी (देवनागरी) छपाई पढ़ता है, कन्नड़ लिपि नहीं। कन्नड़ पतों के लिए नाम या मकान नं. से खोजें — कन्नड़ टाइपिंग और बोलकर खोज चलती है।';
+
+  @override
+  String get myRoutes => 'मेरे रास्ते';
+
+  @override
+  String routeNameDefault(String when) {
+    return 'पैदल $when';
+  }
+
+  @override
+  String deliveryRouteName(String date) {
+    return 'वितरण $date';
+  }
+
+  @override
+  String get recordingNotifTitle => 'बीट मित्र आपका रास्ता रिकॉर्ड कर रहा है';
+
+  @override
+  String get recordingNotifText => 'केवल इसी फ़ोन में सहेजा जाता है। रोकने के लिए ऐप खोलें।';
+
+  @override
+  String get routeTooShort => 'सहेजने के लिए रास्ता बहुत छोटा है';
+
+  @override
+  String get routeSaved => 'रास्ता सहेजा गया';
+
+  @override
+  String recordingNow(String distance) {
+    return 'रास्ता रिकॉर्ड हो रहा है · $distance';
+  }
+
+  @override
+  String get recordHelp => 'अपना पैदल रास्ता रिकॉर्ड करें ताकि आप या नया डाकिया बाद में उसी पर चल सके और लौट सके।';
+
+  @override
+  String get startRecording => 'रिकॉर्डिंग शुरू करें';
+
+  @override
+  String get stopAndSave => 'रोकें और सहेजें';
+
+  @override
+  String get backToStart => 'वापस जाएँ';
+
+  @override
+  String get backToRouteStart => 'जहाँ से शुरू किया वहाँ लौटें';
+
+  @override
+  String get backToOffice => 'डाकघर लौटें';
+
+  @override
+  String get setOfficeHint => 'सुझाव: सेटिंग → रास्ते की शुरुआत में डाकघर की जगह सहेजें।';
+
+  @override
+  String get savedRoutes => 'सहेजे रास्ते';
+
+  @override
+  String get noRoutesYet => 'अभी कोई रास्ता नहीं। “वितरण शुरू करें” के दौरान रास्ता अपने-आप रिकॉर्ड होता है।';
+
+  @override
+  String get arrowOffline => 'तीर (ऑफ़लाइन)';
+
+  @override
+  String get openInGoogleMaps => 'गूगल मैप्स में खोलें';
+
+  @override
+  String get renameRoute => 'रास्ते का नाम बदलें';
+
+  @override
+  String get deleteRoute => 'रास्ता हटाएँ';
+
+  @override
+  String get deleteRouteConfirm => 'यह सहेजा रास्ता हटाएँ?';
+
+  @override
+  String get shareGpx => 'GPX फ़ाइल के रूप में भेजें';
+
+  @override
+  String get routeLegend => 'हरा = शुरुआत, लाल = अंत। बिंदु = सहेजी जगहें।';
+
+  @override
+  String get followRoute => 'इस रास्ते पर चलें';
+
+  @override
+  String get followRouteBack => 'उल्टा चलकर शुरुआत तक लौटें';
+
+  @override
+  String get gmapsRoute => 'यह रास्ता';
+
+  @override
+  String get gmapsToStart => 'शुरुआत तक';
+
+  @override
+  String get gmapsNote =>
+      'गूगल मैप्स इस रास्ते के बिंदुओं से होकर दिशा दिखाता है (गूगल मैप्स को इंटरनेट चाहिए; बीट मित्र ऑफ़लाइन ही रहता है)।';
+
+  @override
+  String get showOnMap => 'ऑनलाइन नक्शे पर दिखाएँ';
+
+  @override
+  String remainingOnRoute(String distance) {
+    return '$distance बाकी';
+  }
+
+  @override
+  String offRoute(String distance) {
+    return 'रास्ते से $distance दूर — रेखा की ओर चलें';
+  }
+
+  @override
+  String get autoRecordRun => 'वितरण के दौरान मेरा रास्ता रिकॉर्ड करें';
+
+  @override
+  String get autoRecordRunSub => 'इसी फ़ोन में सहेजा; रिलीफ़ डाकिये की सौंपने वाली फ़ाइल में शामिल';
+
+  @override
+  String get help10Title => 'रास्ता रिकॉर्ड करें और उस पर चलें';
+
+  @override
+  String get help10Body =>
+      'वितरण के दौरान आपका रास्ता रिकॉर्ड होता है। नया डाकिया उस पर कदम-कदम चल सकता है, या उल्टा चलकर शुरुआत पर लौट सकता है। रास्ते गूगल मैप्स में भी खुलते हैं।';
 }

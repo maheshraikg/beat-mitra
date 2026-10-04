@@ -1836,8 +1836,8 @@ abstract class AppLocalizations {
   /// No description provided for @importDone.
   ///
   /// In en, this message translates to:
-  /// **'Imported {beats} beats, {places} places, {photos} photos'**
-  String importDone(int beats, int places, int photos);
+  /// **'Imported {beats} beats, {places} places, {photos} photos, {routes} routes'**
+  String importDone(int beats, int places, int photos, int routes);
 
   /// No description provided for @thisIsHandover.
   ///
@@ -2270,6 +2270,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Note: the on-device text reader understands English and Hindi (Devanagari) print, but not Kannada script. For Kannada addresses, search by name or door no. — Kannada typing and voice search work.'**
   String get helpKannadaOcr;
+
+  /// No description provided for @myRoutes.
+  ///
+  /// In en, this message translates to:
+  /// **'My routes'**
+  String get myRoutes;
+
+  /// No description provided for @routeNameDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk {when}'**
+  String routeNameDefault(String when);
+
+  /// No description provided for @deliveryRouteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery {date}'**
+  String deliveryRouteName(String date);
+
+  /// No description provided for @recordingNotifTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Beat Mitra is recording your route'**
+  String get recordingNotifTitle;
+
+  /// No description provided for @recordingNotifText.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved only on this phone. Open the app to stop.'**
+  String get recordingNotifText;
+
+  /// No description provided for @routeTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Route too short to save'**
+  String get routeTooShort;
+
+  /// No description provided for @routeSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Route saved'**
+  String get routeSaved;
+
+  /// No description provided for @recordingNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording route · {distance}'**
+  String recordingNow(String distance);
+
+  /// No description provided for @recordHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Record your walk so you, or a new postman, can follow it later and find the way back.'**
+  String get recordHelp;
+
+  /// No description provided for @startRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Start recording'**
+  String get startRecording;
+
+  /// No description provided for @stopAndSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop & save'**
+  String get stopAndSave;
+
+  /// No description provided for @backToStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back'**
+  String get backToStart;
+
+  /// No description provided for @backToRouteStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to where I started'**
+  String get backToRouteStart;
+
+  /// No description provided for @backToOffice.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to post office'**
+  String get backToOffice;
+
+  /// No description provided for @setOfficeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip: set your post office location in Settings → Route start point.'**
+  String get setOfficeHint;
+
+  /// No description provided for @savedRoutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved routes'**
+  String get savedRoutes;
+
+  /// No description provided for @noRoutesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No routes yet. Routes are recorded automatically during “Start delivery”.'**
+  String get noRoutesYet;
+
+  /// No description provided for @arrowOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrow (offline)'**
+  String get arrowOffline;
+
+  /// No description provided for @openInGoogleMaps.
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Google Maps'**
+  String get openInGoogleMaps;
+
+  /// No description provided for @renameRoute.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename route'**
+  String get renameRoute;
+
+  /// No description provided for @deleteRoute.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete route'**
+  String get deleteRoute;
+
+  /// No description provided for @deleteRouteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this saved route?'**
+  String get deleteRouteConfirm;
+
+  /// No description provided for @shareGpx.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as GPX file'**
+  String get shareGpx;
+
+  /// No description provided for @routeLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'Green = start, red = end. Dots = saved places.'**
+  String get routeLegend;
+
+  /// No description provided for @followRoute.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow this route'**
+  String get followRoute;
+
+  /// No description provided for @followRouteBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow it back to the start'**
+  String get followRouteBack;
+
+  /// No description provided for @gmapsRoute.
+  ///
+  /// In en, this message translates to:
+  /// **'This route'**
+  String get gmapsRoute;
+
+  /// No description provided for @gmapsToStart.
+  ///
+  /// In en, this message translates to:
+  /// **'To the start'**
+  String get gmapsToStart;
+
+  /// No description provided for @gmapsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Maps opens with directions through points of this route (needs internet in Google Maps; Beat Mitra itself stays offline).'**
+  String get gmapsNote;
+
+  /// No description provided for @showOnMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Show on online map'**
+  String get showOnMap;
+
+  /// No description provided for @remainingOnRoute.
+  ///
+  /// In en, this message translates to:
+  /// **'{distance} to go'**
+  String remainingOnRoute(String distance);
+
+  /// No description provided for @offRoute.
+  ///
+  /// In en, this message translates to:
+  /// **'Off the route by {distance} — walk towards the line'**
+  String offRoute(String distance);
+
+  /// No description provided for @autoRecordRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Record my route during delivery'**
+  String get autoRecordRun;
+
+  /// No description provided for @autoRecordRunSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved on this phone; included in the handover file for relief postmen'**
+  String get autoRecordRunSub;
+
+  /// No description provided for @help10Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Record and follow routes'**
+  String get help10Title;
+
+  /// No description provided for @help10Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Your walk is recorded during delivery. A new postman can follow it step by step, or follow it backwards to return to the start. Routes also open in Google Maps.'**
+  String get help10Body;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

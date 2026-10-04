@@ -7,7 +7,7 @@ class AppDatabase {
   AppDatabase(this.db);
   final Database db;
 
-  static const int version = 1;
+  static const int version = 2;
 
   static Future<void> onConfigure(Database db) async {
     await db.execute('PRAGMA foreign_keys = ON');
@@ -121,14 +121,46 @@ CREATE TABLE day_log(
     b.execute('CREATE INDEX idx_articles_date ON articles(date)');
     b.execute('CREATE INDEX idx_articles_place ON articles(place_id)');
     await b.commit(noResult: true);
+    await _createTracks(db);
   }
 
-  static Future<void> onUpgrade(Database db, int oldVersion, int newVersion) async {}
+  /// v2: recorded walking routes.
+  static Future<void> _createTracks(Database db) async {
+    final b = db.batch();
+    b.execute('''
+CREATE TABLE tracks(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  beat_id INTEGER REFERENCES beats(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  started_at INTEGER NOT NULL,
+  ended_at INTEGER,
+  distance_m REAL NOT NULL DEFAULT 0,
+  note TEXT NOT NULL DEFAULT ''
+)''');
+    b.execute('''
+CREATE TABLE track_points(
+  track_id INTEGER NOT NULL REFERENCES tracks(id) ON DELETE CASCADE,
+  seq INTEGER NOT NULL,
+  lat REAL NOT NULL,
+  lng REAL NOT NULL,
+  acc REAL NOT NULL DEFAULT 0,
+  t INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY(track_id, seq)
+)''');
+    b.execute('CREATE INDEX idx_tracks_beat ON tracks(beat_id, started_at)');
+    await b.commit(noResult: true);
+  }
+
+  static Future<void> onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) await _createTracks(db);
+  }
 
   /// Removes every row (used by "Delete all data").
   Future<void> wipe() async {
     await db.transaction((t) async {
       for (final table in [
+        'track_points',
+        'tracks',
         'learn_progress',
         'day_log',
         'articles',

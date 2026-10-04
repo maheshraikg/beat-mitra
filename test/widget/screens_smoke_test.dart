@@ -20,6 +20,12 @@ import 'package:beat_mitra/features/settings/settings_screen.dart';
 import 'package:beat_mitra/features/summary/summary_screen.dart';
 import 'package:beat_mitra/features/today/article_editor.dart';
 import 'package:beat_mitra/features/today/today_screen.dart';
+import 'package:beat_mitra/core/track.dart';
+import 'package:beat_mitra/core/geo.dart';
+import 'package:beat_mitra/features/tracks/back_to_start_screen.dart';
+import 'package:beat_mitra/features/tracks/follow_track_screen.dart';
+import 'package:beat_mitra/features/tracks/track_detail_screen.dart';
+import 'package:beat_mitra/features/tracks/tracks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -27,7 +33,7 @@ import 'harness.dart';
 
 void main() {
   late AppState state;
-  late int beatId, placeId;
+  late int beatId, placeId, trackId;
   final today = dayKey(DateTime.now());
 
   Future<void> seed(WidgetTester tester, {String? locale}) async {
@@ -73,6 +79,11 @@ void main() {
           placeId: placeId,
         ),
       );
+      trackId = await s.tracks.start('Delivery $today', beatId: beatId);
+      for (var i = 0; i < 30; i++) {
+        await s.tracks.addPoint(trackId, i, TrackPoint(12.9716 + i * 0.0002, 77.6412 + (i % 7) * 0.0001), 0);
+      }
+      await s.tracks.finish(trackId);
       state = AppState(s);
       await state.init();
     });
@@ -105,6 +116,11 @@ void main() {
     'help': () => const HelpScreen(),
     'about': () => const AboutScreen(),
     'onboarding': () => const OnboardingScreen(),
+    'routes': () => const TracksScreen(),
+    'route detail': () => TrackDetailScreen(trackId: trackId),
+    'follow route': () => FollowTrackScreen(trackId: trackId),
+    'follow route back': () => FollowTrackScreen(trackId: trackId, reverse: true),
+    'back to start': () => const BackToStartScreen(target: GeoPoint(12.9716, 77.6412), label: 'Back'),
     'lock': () => const LockScreen(),
   };
 

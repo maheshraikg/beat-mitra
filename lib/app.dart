@@ -8,6 +8,7 @@ import 'core/l10n/app_localizations.dart';
 import 'core/services/platform.dart';
 import 'core/settings.dart';
 import 'core/theme.dart';
+import 'core/track_recorder.dart';
 import 'features/home/home_screen.dart';
 import 'features/settings/lock_screen.dart';
 import 'features/settings/onboarding_screen.dart';
@@ -28,6 +29,7 @@ class BeatMitraApp extends StatelessWidget {
         ChangeNotifierProvider<AppSettings>.value(value: services.settings),
         ChangeNotifierProvider<AppLock>.value(value: services.lock),
         ChangeNotifierProvider<AppState>.value(value: state),
+        ChangeNotifierProvider<TrackRecorder>.value(value: services.recorder),
       ],
       child: Consumer<AppSettings>(
         builder: (context, settings, _) => MaterialApp(

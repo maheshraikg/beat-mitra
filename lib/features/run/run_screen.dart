@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/article_number.dart';
 import '../../core/geo.dart';
+import '../../core/track_recorder.dart';
 import '../../data/models.dart';
 import '../common/live_location.dart';
 import '../common/widgets.dart';
 import '../search/navigate_screen.dart';
+import '../tracks/track_actions.dart';
 import '../summary/summary_screen.dart';
 
 /// The delivery run: one big "Next stop" card with Delivered / Not delivered
@@ -35,6 +38,12 @@ class _RunScreenState extends State<RunScreen> with LiveLocation {
     super.initState();
     startLocation();
     _load();
+    // Record the walked route so a relief postman can follow it later.
+    if (context.services.settings.autoRecordRun && !context.services.recorder.recording) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) startRecording(context, name: context.l.deliveryRouteName(_date));
+      });
+    }
   }
 
   Future<void> _load() async {
@@ -202,14 +211,40 @@ class _RunScreenState extends State<RunScreen> with LiveLocation {
 
   Widget _finished() {
     final l = context.l;
+    final rec = context.watch<TrackRecorder>();
+    final st = context.services.settings;
+    final office = st.officeLat != null && st.officeLng != null ? GeoPoint(st.officeLat!, st.officeLng!) : null;
+    final start = office ?? rec.firstPoint?.point;
+    final label = office != null ? l.backToOffice : l.backToRouteStart;
     return EmptyState(
       icon: Icons.celebration,
       text: l.runFinished,
-      action: FilledButton.icon(
-        icon: const Icon(Icons.summarize),
-        label: Text(l.daySummary),
-        onPressed: () =>
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => SummaryScreen(date: _date))),
+      action: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (start != null)
+            FilledButton.icon(
+              icon: const Icon(Icons.u_turn_left),
+              label: Text(label),
+              onPressed: () => openBackTo(context, start, label),
+            ),
+          if (rec.recording) ...[
+            const SizedBox(height: 8),
+            FilledButton.tonalIcon(
+              icon: const Icon(Icons.stop),
+              label: Text(l.stopAndSave),
+              onPressed: () => stopRecording(context),
+            ),
+          ],
+          const SizedBox(height: 8),
+          OutlinedButton.icon(
+            icon: const Icon(Icons.summarize),
+            label: Text(l.daySummary),
+            onPressed: () =>
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => SummaryScreen(date: _date))),
+          ),
+        ],
       ),
     );
   }

@@ -7,6 +7,8 @@ import 'package:beat_mitra/data/models.dart';
 import 'package:beat_mitra/data/repos/article_repo.dart';
 import 'package:beat_mitra/data/repos/beat_repo.dart';
 import 'package:beat_mitra/data/repos/place_repo.dart';
+import 'package:beat_mitra/data/repos/track_repo.dart';
+import 'package:beat_mitra/core/track.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_db.dart';
@@ -27,6 +29,12 @@ void main() {
     final file = await photos.saveBytes(Uint8List.fromList([1, 2, 3, 4]));
     await places.addPhoto(PlacePhoto(placeId: p, filePath: file));
     await ArticleRepo(db.db).save(Article(date: '2026-10-03', articleNo: 'EK123456785IN', placeId: p));
+    final tracks = TrackRepo(db.db);
+    final tr = await tracks.start('Delivery 2026-10-03', beatId: b);
+    for (var i = 0; i < 5; i++) {
+      await tracks.addPoint(tr, i, TrackPoint(12.9 + i * 0.0002, 77.6, accuracyM: 4, time: i), 0);
+    }
+    await tracks.finish(tr);
     return (BackupCodec(db.db, photos), b);
   }
 
@@ -59,6 +67,11 @@ void main() {
     expect(d.addressees.single.phone, '9876543210');
     expect(await dstPhotos.load(d.photos.single.filePath), [1, 2, 3, 4]);
     expect((await BeatRepo(dstDb.db).areaNotes(d.place.beatId)).single.title, 'Numbering');
+    expect(r.tracks, 1);
+    final t = (await TrackRepo(dstDb.db).tracks()).single;
+    expect(t.beatId, d.place.beatId);
+    expect(t.name, 'Delivery 2026-10-03');
+    expect((await TrackRepo(dstDb.db).points(t.id!)).length, 5);
   });
 
   test('exclude phone numbers', () async {

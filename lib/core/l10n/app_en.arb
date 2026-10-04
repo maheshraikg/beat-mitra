@@ -570,7 +570,7 @@
   "enterFilePassword": "Password of the file",
   "wrongPassword": "Wrong password",
   "notBeatMitraFile": "This is not a Beat Mitra file",
-  "importDone": "Imported {beats} beats, {places} places, {photos} photos",
+  "importDone": "Imported {beats} beats, {places} places, {photos} photos, {routes} routes",
   "@importDone": {
     "placeholders": {
       "beats": {
@@ -580,6 +580,9 @@
         "type": "int"
       },
       "photos": {
+        "type": "int"
+      },
+      "routes": {
         "type": "int"
       }
     }
@@ -683,5 +686,76 @@
   "help8Body": "Practise with photo and name cards, or use walk mode while walking the beat.",
   "help9Title": "Handover and backup",
   "help9Body": "Give your beat to a relief postman as an encrypted file. Make a full backup every week.",
-  "helpKannadaOcr": "Note: the on-device text reader understands English and Hindi (Devanagari) print, but not Kannada script. For Kannada addresses, search by name or door no. — Kannada typing and voice search work."
+  "helpKannadaOcr": "Note: the on-device text reader understands English and Hindi (Devanagari) print, but not Kannada script. For Kannada addresses, search by name or door no. — Kannada typing and voice search work.",
+  "myRoutes": "My routes",
+  "routeNameDefault": "Walk {when}",
+  "@routeNameDefault": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "deliveryRouteName": "Delivery {date}",
+  "@deliveryRouteName": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "recordingNotifTitle": "Beat Mitra is recording your route",
+  "recordingNotifText": "Saved only on this phone. Open the app to stop.",
+  "routeTooShort": "Route too short to save",
+  "routeSaved": "Route saved",
+  "recordingNow": "Recording route · {distance}",
+  "@recordingNow": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "recordHelp": "Record your walk so you, or a new postman, can follow it later and find the way back.",
+  "startRecording": "Start recording",
+  "stopAndSave": "Stop & save",
+  "backToStart": "Go back",
+  "backToRouteStart": "Back to where I started",
+  "backToOffice": "Back to post office",
+  "setOfficeHint": "Tip: set your post office location in Settings → Route start point.",
+  "savedRoutes": "Saved routes",
+  "noRoutesYet": "No routes yet. Routes are recorded automatically during “Start delivery”.",
+  "arrowOffline": "Arrow (offline)",
+  "openInGoogleMaps": "Open in Google Maps",
+  "renameRoute": "Rename route",
+  "deleteRoute": "Delete route",
+  "deleteRouteConfirm": "Delete this saved route?",
+  "shareGpx": "Share as GPX file",
+  "routeLegend": "Green = start, red = end. Dots = saved places.",
+  "followRoute": "Follow this route",
+  "followRouteBack": "Follow it back to the start",
+  "gmapsRoute": "This route",
+  "gmapsToStart": "To the start",
+  "gmapsNote": "Google Maps opens with directions through points of this route (needs internet in Google Maps; Beat Mitra itself stays offline).",
+  "showOnMap": "Show on online map",
+  "remainingOnRoute": "{distance} to go",
+  "@remainingOnRoute": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "offRoute": "Off the route by {distance} — walk towards the line",
+  "@offRoute": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "autoRecordRun": "Record my route during delivery",
+  "autoRecordRunSub": "Saved on this phone; included in the handover file for relief postmen",
+  "help10Title": "Record and follow routes",
+  "help10Body": "Your walk is recorded during delivery. A new postman can follow it step by step, or follow it backwards to return to the start. Routes also open in Google Maps."
 }

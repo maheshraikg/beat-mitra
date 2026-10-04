@@ -93,7 +93,16 @@ Each build gets version `1.0.<build number>`, and APKs are split per processor:
 10. **Learn the beat**: flashcards (photo → place, name → door no., door no. →
     landmark), *walk mode* that quizzes you about the nearest house, progress
     and weak streets.
-11. **Handover & backup**: export a beat for a relief postman as a
+11. **My routes**: your walk is recorded during "Start delivery" (or start
+    it by hand); it keeps recording with the screen off (a notification shows
+    while it runs). A saved route is drawn offline with start / end. **Follow
+    this route** gives a big arrow along the exact path for a new postman;
+    **Follow it back to the start** walks it in reverse to return to the
+    office. **Back to post office / where I started** points an arrow home.
+    Routes and "back to start" also open in the **Google Maps app** (free
+    directions links, no API key; Google Maps itself needs internet). Routes
+    are included in the handover file and can be shared as GPX.
+12. **Handover & backup**: export a beat for a relief postman as a
     password-protected `.beatmitra` file (option to leave out phone numbers),
     import it on the other phone; full encrypted backup / restore.
 
@@ -143,6 +152,13 @@ reset, only a backup can bring it back.
 - **Read-aloud** uses the phone's text-to-speech engine; Kannada voice must be
   installed on the phone.
 - Route distances are straight-line (haversine) estimates, not road distances.
+- Google Maps is opened as a separate app with a directions link through up to
+  8 points of a saved route, so its road routing may differ slightly from the
+  recorded path; the in-app "Follow this route" follows the exact path.
+  Embedding Google's map inside the app would need a paid / billing-enabled API
+  key, so it is not used.
+- Route recording uses GPS continuously and costs battery (roughly like a
+  fitness app); it stops when you press "Stop & save".
 - The arrow needs a compass (magnetometer). Without one the app says so and
   the arrow assumes the top of the phone points north. Calibrate the compass
   by moving the phone in a figure 8.

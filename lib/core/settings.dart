@@ -81,6 +81,10 @@ class AppSettings extends ChangeNotifier {
   bool get tts => _get('tts', false);
   set tts(bool v) => _set('tts', v);
 
+  /// Record the walked route automatically during a delivery run.
+  bool get autoRecordRun => _get('autoRecordRun', true);
+  set autoRecordRun(bool v) => _set('autoRecordRun', v);
+
   bool get vibrateNear => _get('vibrateNear', true);
   set vibrateNear(bool v) => _set('vibrateNear', v);
 

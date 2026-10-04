@@ -18,7 +18,10 @@ enum LocationProblem { none, serviceOff, denied, deniedForever }
 abstract class LocationService {
   Future<LocationProblem> ensurePermission();
   Future<GpsFix?> current();
-  Stream<GpsFix> fixes();
+
+  /// Live fixes. With [background], Android keeps a foreground service (with
+  /// a small notification) so recording continues with the screen off.
+  Stream<GpsFix> fixes({String? backgroundTitle, String? backgroundText});
 
   /// Compass heading in degrees (0 = north) or null if no sensor.
   Stream<double?> heading();
@@ -57,13 +60,22 @@ class DeviceLocationService implements LocationService {
   }
 
   @override
-  Stream<GpsFix> fixes() async* {
+  Stream<GpsFix> fixes({String? backgroundTitle, String? backgroundText}) async* {
     if (await ensurePermission() != LocationProblem.none) return;
     yield* Geolocator.getPositionStream(
       locationSettings: AndroidSettings(
         accuracy: LocationAccuracy.best,
         distanceFilter: 0,
-        intervalDuration: const Duration(seconds: 1),
+        intervalDuration: Duration(seconds: backgroundTitle == null ? 1 : 3),
+        foregroundNotificationConfig: backgroundTitle == null
+            ? null
+            : ForegroundNotificationConfig(
+                notificationTitle: backgroundTitle,
+                notificationText: backgroundText ?? '',
+                notificationChannelName: 'Route recording',
+                setOngoing: true,
+                enableWakeLock: true,
+              ),
       ),
     ).map((p) => _last = _toFix(p)).handleError((_) {});
   }

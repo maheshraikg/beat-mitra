@@ -5,6 +5,7 @@ import 'core/article_matcher.dart';
 import 'core/address_parser.dart';
 import 'core/fuzzy.dart';
 import 'core/services/location_service.dart';
+import 'core/track_recorder.dart';
 import 'core/services/photo_store.dart';
 import 'core/services/voice_service.dart';
 import 'core/settings.dart';
@@ -14,6 +15,7 @@ import 'data/repos/article_repo.dart';
 import 'data/repos/beat_repo.dart';
 import 'data/repos/learn_repo.dart';
 import 'data/repos/place_repo.dart';
+import 'data/repos/track_repo.dart';
 
 /// Everything the screens need, created once at start-up (or with fakes in
 /// widget tests).
@@ -28,7 +30,10 @@ class AppServices {
   }) : beats = BeatRepo(database.db),
        places = PlaceRepo(database.db),
        articles = ArticleRepo(database.db),
-       learn = LearnRepo(database.db);
+       learn = LearnRepo(database.db),
+       tracks = TrackRepo(database.db) {
+    recorder = TrackRecorder(tracks, location);
+  }
 
   final AppDatabase database;
   final AppSettings settings;
@@ -40,6 +45,8 @@ class AppServices {
   final PlaceRepo places;
   final ArticleRepo articles;
   final LearnRepo learn;
+  final TrackRepo tracks;
+  late final TrackRecorder recorder;
 }
 
 /// App-wide state: the active beat and the in-memory search index.
@@ -61,6 +68,7 @@ class AppState extends ChangeNotifier {
     await reloadBeats();
     await rebuildIndex();
     await _cleanupHistory();
+    await s.recorder.recoverUnfinished();
     ready = true;
     notifyListeners();
   }

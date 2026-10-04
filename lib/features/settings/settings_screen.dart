@@ -162,6 +162,13 @@ class SettingsScreen extends StatelessWidget {
             onTap: () => _startPoint(context, s),
           ),
           SwitchListTile(
+            secondary: const Icon(Icons.route),
+            title: Text(l.autoRecordRun),
+            subtitle: Text(l.autoRecordRunSub),
+            value: s.autoRecordRun,
+            onChanged: (v) => s.autoRecordRun = v,
+          ),
+          SwitchListTile(
             secondary: const Icon(Icons.vibration),
             title: Text(l.vibrateNear),
             value: s.vibrateNear,
@@ -327,6 +334,7 @@ class SettingsScreen extends StatelessWidget {
     final app = context.read<AppState>();
     final lock = context.read<AppLock>();
     final settings = context.read<AppSettings>();
+    await services.recorder.stop();
     for (final f in await services.places.allPhotoFiles()) {
       await services.photos.delete(f);
     }

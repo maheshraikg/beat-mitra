@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_state.dart';
+import '../../core/geo.dart';
 import '../../core/settings.dart';
+import '../../core/track_recorder.dart';
 import '../../data/models.dart';
 import '../backup/backup_screen.dart';
 import '../beat/beat_detail_screen.dart';
@@ -18,6 +20,8 @@ import '../settings/map_screen.dart';
 import '../settings/settings_screen.dart';
 import '../summary/summary_screen.dart';
 import '../today/today_screen.dart';
+import '../tracks/track_actions.dart';
+import '../tracks/tracks_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -125,6 +129,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
+        const _RecordingBanner(),
         _TodayTile(version: app.version),
         const SizedBox(height: 12),
         GridView.count(
@@ -142,6 +147,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () => _push(context, const RouteScreen()),
             ),
             BigTile(icon: Icons.near_me, label: l.nearby, onTap: () => _push(context, const NearbyScreen())),
+            BigTile(icon: Icons.route, label: l.myRoutes, onTap: () => _push(context, const TracksScreen())),
             BigTile(
               icon: Icons.summarize_outlined,
               label: l.daySummary,
@@ -160,6 +166,27 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+/// Shown while the walk is being recorded.
+class _RecordingBanner extends StatelessWidget {
+  const _RecordingBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final rec = context.watch<TrackRecorder>();
+    if (!rec.recording) return const SizedBox.shrink();
+    final l = context.l;
+    return Card(
+      color: Theme.of(context).colorScheme.errorContainer,
+      child: ListTile(
+        leading: const Icon(Icons.fiber_manual_record, color: Colors.red),
+        title: Text(l.recordingNow(formatDistance(rec.distanceM))),
+        trailing: TextButton(onPressed: () => stopRecording(context), child: Text(l.stopAndSave)),
+        onTap: () => _push(context, const TracksScreen()),
+      ),
     );
   }
 }
