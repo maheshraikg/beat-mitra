@@ -33,7 +33,7 @@ flutter analyze && flutter test
 
 The GitHub Actions workflow `.github/workflows/build.yml` runs analyze,
 tests, builds both APKs, checks that the offline APK has no INTERNET permission
-and uploads the APKs as the `beat-mitra-apks` artifact. Pushing a tag `vX.Y.Z` also publishes a GitHub Release with `beat-mitra.apk` (offline) and `beat-mitra-map.apk`.
+and uploads the APKs as the `beat-mitra-apks` artifact. Every push to `main` also publishes a GitHub Release (version from `pubspec.yaml`) with `beat-mitra.apk` (offline) and `beat-mitra-map.apk`.
 
 **Direct download (latest):** https://github.com/maheshraikg/beat-mitra/releases/latest/download/beat-mitra.apk
 
