@@ -20,6 +20,12 @@ Future<void> startRecording(BuildContext context, {String? name}) async {
     if (problem != LocationProblem.denied) await s.location.openSettings();
     return;
   }
+  if (!await s.location.ensurePrecise()) {
+    if (context.mounted && await confirm(context, l.preciseOffTitle, l.preciseOffBody, ok: l.openSettings)) {
+      await s.location.openSettings();
+    }
+    return;
+  }
   await PlatformBridge.requestNotificationPermission();
   if (!context.mounted) return;
   final now = DateTime.now();
@@ -63,7 +69,8 @@ String recordingGpsStatus(BuildContext context, double? accuracyM, double distan
   final l = context.l;
   if (accuracyM == null) return l.gpsWaiting;
   if (accuracyM > recordMaxAccuracyM) {
-    return '${l.gpsAccuracy(accuracyM.round(), recordMaxAccuracyM.round())}\n${l.recordGpsWeak(recordMaxAccuracyM.round())}';
+    return '${l.gpsAccuracy(accuracyM.round(), recordMaxAccuracyM.round())}\n'
+        '${l.recordGpsWeak(recordMaxAccuracyM.round())}\n${l.recordGpsTip}';
   }
   return distanceM < 1
       ? '${l.gpsAccuracyShort(accuracyM.round())} · ${l.recordGpsOk}'

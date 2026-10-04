@@ -17,6 +17,11 @@ enum LocationProblem { none, serviceOff, denied, deniedForever }
 /// GPS + compass, kept behind an interface so screens can be tested.
 abstract class LocationService {
   Future<LocationProblem> ensurePermission();
+
+  /// True when the app may use precise GPS. Android 12+ users can grant only
+  /// "approximate" location (accuracy of hundreds of metres); this asks once
+  /// more for precise location before giving up.
+  Future<bool> ensurePrecise();
   Future<GpsFix?> current();
 
   /// Live fixes. With [background], Android keeps a foreground service (with
@@ -41,6 +46,17 @@ class DeviceLocationService implements LocationService {
     if (perm == LocationPermission.deniedForever) return LocationProblem.deniedForever;
     if (perm == LocationPermission.denied) return LocationProblem.denied;
     return LocationProblem.none;
+  }
+
+  @override
+  Future<bool> ensurePrecise() async {
+    try {
+      if (await Geolocator.getLocationAccuracy() != LocationAccuracyStatus.reduced) return true;
+      await Geolocator.requestPermission(); // Android shows "change to precise location"
+      return await Geolocator.getLocationAccuracy() != LocationAccuracyStatus.reduced;
+    } catch (_) {
+      return true; // unknown: let GPS accuracy speak for itself
+    }
   }
 
   @override

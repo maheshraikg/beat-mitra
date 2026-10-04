@@ -24,6 +24,8 @@ class FakeLocation implements LocationService {
   @override
   Future<LocationProblem> ensurePermission() async => LocationProblem.none;
   @override
+  Future<bool> ensurePrecise() async => true;
+  @override
   Future<GpsFix?> current() async => _fix;
   @override
   Stream<GpsFix> fixes({String? backgroundTitle, String? backgroundText}) async* {

@@ -15,6 +15,8 @@ class _NoGps implements LocationService {
   @override
   Future<LocationProblem> ensurePermission() async => LocationProblem.none;
   @override
+  Future<bool> ensurePrecise() async => true;
+  @override
   Future<GpsFix?> current() async => null;
   @override
   Stream<GpsFix> fixes({String? backgroundTitle, String? backgroundText}) => const Stream.empty();

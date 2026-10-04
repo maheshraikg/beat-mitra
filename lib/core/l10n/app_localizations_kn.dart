@@ -1230,6 +1230,17 @@ class AppLocalizationsKn extends AppLocalizations {
   String get recordGpsOk => 'GPS ಸರಿಯಾಗಿದೆ. ನಡೆಯಲು ಆರಂಭಿಸಿ – ನೀವು ಸಾಗಿದಂತೆ ದೂರ ಹೆಚ್ಚುತ್ತದೆ.';
 
   @override
+  String get preciseOffTitle => 'ನಿಖರ ಸ್ಥಳ ಆಫ್ ಆಗಿದೆ';
+
+  @override
+  String get preciseOffBody =>
+      'ಬೀಟ್ ಮಿತ್ರಕ್ಕೆ ಅಂದಾಜು ಸ್ಥಳ ಮಾತ್ರ ಸಿಗುತ್ತಿದೆ (ನೂರಾರು ಮೀಟರ್), ಆದ್ದರಿಂದ ಮಾರ್ಗ ದಾಖಲಿಸಲಾಗುವುದಿಲ್ಲ.\n\nಸೆಟ್ಟಿಂಗ್ → ಅನುಮತಿಗಳು → ಸ್ಥಳ ದಲ್ಲಿ “ನಿಖರ ಸ್ಥಳ ಬಳಸಿ” ಆನ್ ಮಾಡಿ. ನಂತರ ಮತ್ತೆ “ದಾಖಲಿಸಲು ಆರಂಭಿಸಿ” ಒತ್ತಿ.';
+
+  @override
+  String get recordGpsTip =>
+      'ಫೋನ್ ಸೆಟ್ಟಿಂಗ್ → ಸ್ಥಳ ದಲ್ಲಿ “Google Location Accuracy” (ಅಥವಾ “ನಿಖರತೆ ಸುಧಾರಿಸಿ”) ಆನ್ ಇದೆಯೇ ನೋಡಿ.';
+
+  @override
   String get startRecording => 'ದಾಖಲಿಸಲು ಆರಂಭಿಸಿ';
 
   @override

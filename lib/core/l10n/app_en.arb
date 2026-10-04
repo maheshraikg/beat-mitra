@@ -726,6 +726,9 @@
     }
   },
   "recordGpsOk": "GPS OK. Start walking – the distance grows as you move.",
+  "preciseOffTitle": "Precise location is off",
+  "preciseOffBody": "Beat Mitra gets only your approximate location (hundreds of metres), so a route cannot be recorded.\n\nIn Settings → Permissions → Location, turn on “Use precise location”. Then tap Start recording again.",
+  "recordGpsTip": "Also check phone Settings → Location: turn on “Google Location Accuracy” (or “Improve accuracy”).",
   "startRecording": "Start recording",
   "stopAndSave": "Stop & save",
   "backToStart": "Go back",

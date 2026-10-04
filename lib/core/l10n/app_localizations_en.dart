@@ -1229,6 +1229,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recordGpsOk => 'GPS OK. Start walking – the distance grows as you move.';
 
   @override
+  String get preciseOffTitle => 'Precise location is off';
+
+  @override
+  String get preciseOffBody =>
+      'Beat Mitra gets only your approximate location (hundreds of metres), so a route cannot be recorded.\n\nIn Settings → Permissions → Location, turn on “Use precise location”. Then tap Start recording again.';
+
+  @override
+  String get recordGpsTip =>
+      'Also check phone Settings → Location: turn on “Google Location Accuracy” (or “Improve accuracy”).';
+
+  @override
   String get startRecording => 'Start recording';
 
   @override

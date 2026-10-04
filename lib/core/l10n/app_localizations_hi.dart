@@ -1225,6 +1225,17 @@ class AppLocalizationsHi extends AppLocalizations {
   String get recordGpsOk => 'GPS ठीक है। चलना शुरू करें – चलने पर दूरी बढ़ती है।';
 
   @override
+  String get preciseOffTitle => 'सटीक लोकेशन बंद है';
+
+  @override
+  String get preciseOffBody =>
+      'बीट मित्र को केवल अनुमानित लोकेशन (सैकड़ों मीटर) मिल रही है, इसलिए रास्ता रिकॉर्ड नहीं हो सकता।\n\nसेटिंग → अनुमतियाँ → लोकेशन में “सटीक लोकेशन का इस्तेमाल करें” चालू करें। फिर “रिकॉर्डिंग शुरू करें” दोबारा दबाएँ।';
+
+  @override
+  String get recordGpsTip =>
+      'फ़ोन सेटिंग → लोकेशन में “Google Location Accuracy” (या “सटीकता सुधारें”) चालू है, यह भी देखें।';
+
+  @override
   String get startRecording => 'रिकॉर्डिंग शुरू करें';
 
   @override

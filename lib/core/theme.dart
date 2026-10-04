@@ -115,9 +115,7 @@ ThemeData buildTheme(Brightness brightness, {bool sunlight = false}) {
     // No labelStyle here: a fixed label colour in chipTheme showed light text
     // on light chips on some phones. The chip's own default resolves the
     // colour from the current scheme at build time.
-    chipTheme: base.chipTheme.copyWith(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-    ),
+    chipTheme: base.chipTheme.copyWith(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8)),
     listTileTheme: const ListTileThemeData(minVerticalPadding: 12),
   );
 }

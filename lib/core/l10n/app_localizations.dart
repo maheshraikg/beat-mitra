@@ -2337,6 +2337,24 @@ abstract class AppLocalizations {
   /// **'GPS OK. Start walking – the distance grows as you move.'**
   String get recordGpsOk;
 
+  /// No description provided for @preciseOffTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Precise location is off'**
+  String get preciseOffTitle;
+
+  /// No description provided for @preciseOffBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Beat Mitra gets only your approximate location (hundreds of metres), so a route cannot be recorded.\n\nIn Settings → Permissions → Location, turn on “Use precise location”. Then tap Start recording again.'**
+  String get preciseOffBody;
+
+  /// No description provided for @recordGpsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Also check phone Settings → Location: turn on “Google Location Accuracy” (or “Improve accuracy”).'**
+  String get recordGpsTip;
+
   /// No description provided for @startRecording.
   ///
   /// In en, this message translates to:
