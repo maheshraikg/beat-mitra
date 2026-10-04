@@ -24,7 +24,31 @@ class _NoGps implements LocationService {
   Future<void> openSettings() async {}
 }
 
+class _StreamGps extends _NoGps {
+  final ctrl = StreamController<GpsFix>();
+  @override
+  Stream<GpsFix> fixes({String? backgroundTitle, String? backgroundText}) => ctrl.stream;
+}
+
 void main() {
+  test('recorder reports GPS accuracy of every fix, stores only good ones', () async {
+    final db = await openTestDatabase();
+    final gps = _StreamGps();
+    final rec = TrackRecorder(TrackRepo(db.db), gps);
+    await rec.start('x', notificationTitle: 't', notificationText: 'x');
+    expect(rec.gpsAccuracyM, isNull);
+    gps.ctrl.add(GpsFix(const GeoPoint(12.97, 77.64), 60, DateTime(2026)));
+    await pumpEventQueue();
+    expect(rec.gpsAccuracyM, 60);
+    expect(rec.pointCount, 0); // indoors: too inaccurate to store
+    gps.ctrl.add(GpsFix(const GeoPoint(12.97, 77.64), 8, DateTime(2026)));
+    await pumpEventQueue();
+    expect(rec.gpsAccuracyM, 8);
+    expect(rec.pointCount, 1);
+    await rec.stop();
+    expect(rec.gpsAccuracyM, isNull);
+  });
+
   test('recorder filters fixes, stores points, finishes with distance', () async {
     final db = await openTestDatabase();
     final repo = TrackRepo(db.db);

@@ -42,7 +42,15 @@ class TrackView extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           child: CustomPaint(
             size: Size.infinite,
-            painter: _TrackPainter(points, here, target, progress, places, scheme, Theme.of(context).textTheme.labelMedium!),
+            painter: _TrackPainter(
+              points,
+              here,
+              target,
+              progress,
+              places,
+              scheme,
+              Theme.of(context).textTheme.labelMedium!,
+            ),
           ),
         ),
       ),

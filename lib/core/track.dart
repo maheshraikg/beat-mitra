@@ -37,9 +37,12 @@ List<double> cumulativeDistances(List<TrackPoint> pts) {
   return out;
 }
 
+/// GPS fixes less accurate than this are not stored in a recorded route.
+const double recordMaxAccuracyM = 35;
+
 /// Decides whether a new GPS fix is worth storing: accurate enough and far
 /// enough from the last stored point (keeps files small, removes GPS jitter).
-bool shouldRecord(TrackPoint? last, TrackPoint next, {double maxAccuracyM = 35, double minStepM = 8}) {
+bool shouldRecord(TrackPoint? last, TrackPoint next, {double maxAccuracyM = recordMaxAccuracyM, double minStepM = 8}) {
   if (next.accuracyM > maxAccuracyM) return false;
   if (last == null) return true;
   return haversineMeters(last.point, next.point) >= math.max(minStepM, next.accuracyM * 0.5);

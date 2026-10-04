@@ -1222,6 +1222,14 @@ class AppLocalizationsKn extends AppLocalizations {
   String get recordHelp => 'ನಿಮ್ಮ ನಡಿಗೆಯನ್ನು ದಾಖಲಿಸಿ — ನಂತರ ನೀವು ಅಥವಾ ಹೊಸ ಅಂಚೆಯಣ್ಣ ಅದನ್ನು ಅನುಸರಿಸಿ ಹಿಂದಿರುಗಬಹುದು.';
 
   @override
+  String recordGpsWeak(int want) {
+    return 'GPS ದುರ್ಬಲವಾಗಿದೆ – ಕಟ್ಟಡಗಳಿಂದ ದೂರ, ಹೊರಗೆ ಹೋಗಿ. GPS $want ಮೀ ಗಿಂತ ನಿಖರವಾದಾಗ ಮಾತ್ರ ಮಾರ್ಗ ಉಳಿಯುತ್ತದೆ.';
+  }
+
+  @override
+  String get recordGpsOk => 'GPS ಸರಿಯಾಗಿದೆ. ನಡೆಯಲು ಆರಂಭಿಸಿ – ನೀವು ಸಾಗಿದಂತೆ ದೂರ ಹೆಚ್ಚುತ್ತದೆ.';
+
+  @override
   String get startRecording => 'ದಾಖಲಿಸಲು ಆರಂಭಿಸಿ';
 
   @override

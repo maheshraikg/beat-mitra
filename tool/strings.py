@@ -377,6 +377,8 @@ S = {
  "routeSaved": ("Route saved", "ಮಾರ್ಗ ಉಳಿಸಲಾಗಿದೆ", "रास्ता सहेजा गया"),
  "recordingNow": ("Recording route · {distance}", "ಮಾರ್ಗ ದಾಖಲಾಗುತ್ತಿದೆ · {distance}", "रास्ता रिकॉर्ड हो रहा है · {distance}"),
  "recordHelp": ("Record your walk so you, or a new postman, can follow it later and find the way back.", "ನಿಮ್ಮ ನಡಿಗೆಯನ್ನು ದಾಖಲಿಸಿ — ನಂತರ ನೀವು ಅಥವಾ ಹೊಸ ಅಂಚೆಯಣ್ಣ ಅದನ್ನು ಅನುಸರಿಸಿ ಹಿಂದಿರುಗಬಹುದು.", "अपना पैदल रास्ता रिकॉर्ड करें ताकि आप या नया डाकिया बाद में उसी पर चल सके और लौट सके।"),
+ "recordGpsWeak": ("Weak GPS – go outside, away from buildings. The route is saved only when GPS is better than {want} m.", "GPS ದುರ್ಬಲವಾಗಿದೆ – ಕಟ್ಟಡಗಳಿಂದ ದೂರ, ಹೊರಗೆ ಹೋಗಿ. GPS {want} ಮೀ ಗಿಂತ ನಿಖರವಾದಾಗ ಮಾತ್ರ ಮಾರ್ಗ ಉಳಿಯುತ್ತದೆ.", "GPS कमज़ोर है – इमारतों से दूर, बाहर जाएँ। GPS {want} मी से बेहतर होने पर ही रास्ता सहेजा जाता है।"),
+ "recordGpsOk": ("GPS OK. Start walking – the distance grows as you move.", "GPS ಸರಿಯಾಗಿದೆ. ನಡೆಯಲು ಆರಂಭಿಸಿ – ನೀವು ಸಾಗಿದಂತೆ ದೂರ ಹೆಚ್ಚುತ್ತದೆ.", "GPS ठीक है। चलना शुरू करें – चलने पर दूरी बढ़ती है।"),
  "startRecording": ("Start recording", "ದಾಖಲಿಸಲು ಆರಂಭಿಸಿ", "रिकॉर्डिंग शुरू करें"),
  "stopAndSave": ("Stop & save", "ನಿಲ್ಲಿಸಿ ಉಳಿಸಿ", "रोकें और सहेजें"),
  "backToStart": ("Go back", "ಹಿಂದಿರುಗಿ", "वापस जाएँ"),

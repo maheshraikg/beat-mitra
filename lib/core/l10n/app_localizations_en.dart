@@ -1221,6 +1221,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recordHelp => 'Record your walk so you, or a new postman, can follow it later and find the way back.';
 
   @override
+  String recordGpsWeak(int want) {
+    return 'Weak GPS – go outside, away from buildings. The route is saved only when GPS is better than $want m.';
+  }
+
+  @override
+  String get recordGpsOk => 'GPS OK. Start walking – the distance grows as you move.';
+
+  @override
   String get startRecording => 'Start recording';
 
   @override

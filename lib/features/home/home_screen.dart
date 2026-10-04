@@ -184,6 +184,7 @@ class _RecordingBanner extends StatelessWidget {
       child: ListTile(
         leading: const Icon(Icons.fiber_manual_record, color: Colors.red),
         title: Text(l.recordingNow(formatDistance(rec.distanceM))),
+        subtitle: Text(recordingGpsStatus(context, rec.gpsAccuracyM, rec.distanceM)),
         trailing: TextButton(onPressed: () => stopRecording(context), child: Text(l.stopAndSave)),
         onTap: () => _push(context, const TracksScreen()),
       ),

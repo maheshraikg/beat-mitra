@@ -1217,6 +1217,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get recordHelp => 'अपना पैदल रास्ता रिकॉर्ड करें ताकि आप या नया डाकिया बाद में उसी पर चल सके और लौट सके।';
 
   @override
+  String recordGpsWeak(int want) {
+    return 'GPS कमज़ोर है – इमारतों से दूर, बाहर जाएँ। GPS $want मी से बेहतर होने पर ही रास्ता सहेजा जाता है।';
+  }
+
+  @override
+  String get recordGpsOk => 'GPS ठीक है। चलना शुरू करें – चलने पर दूरी बढ़ती है।';
+
+  @override
   String get startRecording => 'रिकॉर्डिंग शुरू करें';
 
   @override

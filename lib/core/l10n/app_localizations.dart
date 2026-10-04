@@ -2325,6 +2325,18 @@ abstract class AppLocalizations {
   /// **'Record your walk so you, or a new postman, can follow it later and find the way back.'**
   String get recordHelp;
 
+  /// No description provided for @recordGpsWeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Weak GPS – go outside, away from buildings. The route is saved only when GPS is better than {want} m.'**
+  String recordGpsWeak(int want);
+
+  /// No description provided for @recordGpsOk.
+  ///
+  /// In en, this message translates to:
+  /// **'GPS OK. Start walking – the distance grows as you move.'**
+  String get recordGpsOk;
+
   /// No description provided for @startRecording.
   ///
   /// In en, this message translates to:

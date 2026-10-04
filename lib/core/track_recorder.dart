@@ -21,6 +21,11 @@ class TrackRecorder extends ChangeNotifier {
   int _seq = 0;
   double _distance = 0;
   TrackPoint? _first;
+  double? _gpsAccuracyM;
+
+  /// Accuracy of the latest GPS fix (accepted or not); null until the first
+  /// fix arrives. Shown so the user knows whether GPS is good enough.
+  double? get gpsAccuracyM => _gpsAccuracyM;
 
   bool get recording => _trackId != null;
   int? get trackId => _trackId;
@@ -47,14 +52,18 @@ class TrackRecorder extends ChangeNotifier {
     _first = null;
     _seq = 0;
     _distance = 0;
+    _gpsAccuracyM = null;
     notifyListeners();
-    _sub = _location
-        .fixes(backgroundTitle: notificationTitle, backgroundText: notificationText)
-        .listen(
-          (f) =>
-              addFix(TrackPoint(f.point.lat, f.point.lng, accuracyM: f.accuracyM, time: f.time.millisecondsSinceEpoch)),
-        );
+    _sub = _location.fixes(backgroundTitle: notificationTitle, backgroundText: notificationText).listen(_onFix);
     return id;
+  }
+
+  void _onFix(GpsFix f) {
+    if (_gpsAccuracyM != f.accuracyM) {
+      _gpsAccuracyM = f.accuracyM;
+      notifyListeners();
+    }
+    addFix(TrackPoint(f.point.lat, f.point.lng, accuracyM: f.accuracyM, time: f.time.millisecondsSinceEpoch));
   }
 
   /// Exposed for tests: filters and stores one GPS fix.
@@ -79,6 +88,7 @@ class TrackRecorder extends ChangeNotifier {
     await _sub?.cancel();
     _sub = null;
     _trackId = null;
+    _gpsAccuracyM = null;
     final count = _seq;
     if (count < 2) {
       await _repo.delete(id); // nothing useful recorded

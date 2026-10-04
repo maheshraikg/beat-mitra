@@ -43,6 +43,7 @@ class _TracksScreenState extends State<TracksScreen> {
         ? GeoPoint(settings.officeLat!, settings.officeLng!)
         : null;
     final lastStart = rec.firstPoint?.point;
+    final gpsStatus = rec.recording ? recordingGpsStatus(context, rec.gpsAccuracyM, rec.distanceM) : null;
 
     return Scaffold(
       appBar: AppBar(title: Text(l.myRoutes)),
@@ -72,6 +73,11 @@ class _TracksScreenState extends State<TracksScreen> {
                       ),
                     ],
                   ),
+                  if (gpsStatus != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Text(gpsStatus, style: t.bodyMedium),
+                    ),
                   const SizedBox(height: 10),
                   rec.recording
                       ? FilledButton.icon(
